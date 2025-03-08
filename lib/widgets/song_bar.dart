@@ -27,6 +27,7 @@ import 'package:flutter/material.dart';
 import 'package:musify/API/musify.dart';
 import 'package:musify/extensions/l10n.dart';
 import 'package:musify/main.dart';
+import 'package:musify/services/download_service.dart';
 import 'package:musify/utilities/common_variables.dart';
 import 'package:musify/utilities/flutter_toast.dart';
 import 'package:musify/utilities/formatter.dart';
@@ -247,6 +248,11 @@ class SongBar extends StatelessWidget {
             }
             songOfflineStatus.value = !songOfflineStatus.value;
             break;
+          case 'download_flac':
+            final musicUrl =
+                "https://www.youtube.com/watch?v=${song['flac_url']}";
+            downloadFlac0(musicUrl, song['title']);
+            break;
         }
       },
       itemBuilder: (BuildContext context) {
@@ -313,6 +319,16 @@ class SongBar extends StatelessWidget {
                   ],
                 );
               },
+            ),
+          ),
+          PopupMenuItem<String>(
+            value: 'download_flac',
+            child: Row(
+              children: [
+                Icon(Icons.download_outlined, color: primaryColor),
+                const SizedBox(width: 8),
+                Text(context.l10n!.addToPlaylist),
+              ],
             ),
           ),
         ];
