@@ -2,9 +2,11 @@
   "ka": [
     "addToLikedPlaylists",
     "addToLikedSongs",
+    "addedPlaylists",
     "albums",
     "chooseBackupFiles",
     "client",
+    "customPlaylists",
     "deletePlaylist",
     "hours",
     "invalidYouTubePlaylist",
@@ -22,15 +24,19 @@
     "selectDuration",
     "setSleepTimer",
     "setTimer",
-    "songAlreadyInPlaylist"
+    "songAddedToOffline",
+    "songAlreadyInPlaylist",
+    "songRemovedFromOffline"
   ],
 
   "tr": [
     "addToLikedPlaylists",
     "addToLikedSongs",
+    "addedPlaylists",
     "albums",
     "chooseBackupFiles",
     "client",
+    "customPlaylists",
     "deletePlaylist",
     "hours",
     "invalidYouTubePlaylist",
@@ -48,7 +54,9 @@
     "selectDuration",
     "setSleepTimer",
     "setTimer",
-    "songAlreadyInPlaylist"
+    "songAddedToOffline",
+    "songAlreadyInPlaylist",
+    "songRemovedFromOffline"
   ],
 
   "zh": [

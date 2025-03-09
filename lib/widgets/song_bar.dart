@@ -251,9 +251,9 @@ class SongBar extends StatelessWidget {
             songOfflineStatus.value = !songOfflineStatus.value;
             break;
           case 'download_flac':
-            final musicUrl =
-                "https://www.youtube.com/watch?v=${song['flac_url']}";
-            downloadFlac0(musicUrl, song['title']);
+            debugPrint('song------------');
+            debugPrint(song['ytid']);
+            downloadAudio(song['ytid']);
             break;
         }
       },
@@ -329,7 +329,7 @@ class SongBar extends StatelessWidget {
               children: [
                 Icon(Icons.download_outlined, color: primaryColor),
                 const SizedBox(width: 8),
-                Text(context.l10n!.addToPlaylist),
+                Text(context.l10n!.download),
               ],
             ),
           ),

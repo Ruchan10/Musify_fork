@@ -7,10 +7,11 @@ on:
   workflow_dispatch: 
 
 env:
-  VERSION: "9.2.2" 
+  VERSION: "9.2.3" 
   CHANGES: |
     - Play on device music 
     - Now the app remembers music state before call and retains it after call ends
+    - Playlist playback issue fix
 
 jobs:
   build:
