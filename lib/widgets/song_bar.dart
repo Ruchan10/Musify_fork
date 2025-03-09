@@ -243,8 +243,10 @@ class SongBar extends StatelessWidget {
           case 'offline':
             if (songOfflineStatus.value) {
               removeSongFromOffline(song['ytid']);
+              showToast(context, context.l10n!.songRemovedFromOffline);
             } else {
               makeSongOffline(song);
+              showToast(context, context.l10n!.songAddedToOffline);
             }
             songOfflineStatus.value = !songOfflineStatus.value;
             break;

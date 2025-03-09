@@ -43,7 +43,9 @@ final _yt = YoutubeExplode();
 List globalSongs = [];
 
 List playlists = [...playlistsDB, ...albumsDB];
-List userPlaylists = Hive.box('user').get('playlists', defaultValue: []);
+final userPlaylists = ValueNotifier<List>(
+  Hive.box('user').get('playlists', defaultValue: []),
+);
 final userCustomPlaylists = ValueNotifier<List>(
   Hive.box('user').get('customPlaylists', defaultValue: []),
 );
@@ -145,8 +147,8 @@ Future<List> getRecommendedSongs() async {
 }
 
 Future<List<dynamic>> getUserPlaylists() async {
-  final playlistsByUser = [...userCustomPlaylists.value];
-  for (final playlistID in userPlaylists) {
+  final playlistsByUser = [];
+  for (final playlistID in userPlaylists.value) {
     try {
       final plist = await _yt.playlists.get(playlistID);
       playlistsByUser.add({
@@ -202,7 +204,7 @@ Future<String> addUserPlaylist(String input, BuildContext context) async {
   try {
     final _playlist = await _yt.playlists.get(playlistId);
 
-    if (userPlaylists.contains(playlistId)) {
+    if (userPlaylists.value.contains(playlistId)) {
       return '${context.l10n!.playlistAlreadyExists}!';
     }
 
@@ -212,8 +214,8 @@ Future<String> addUserPlaylist(String input, BuildContext context) async {
       return '${context.l10n!.invalidYouTubePlaylist}!';
     }
 
-    userPlaylists.add(playlistId);
-    addOrUpdateData('user', 'playlists', userPlaylists);
+    userPlaylists.value = [...userPlaylists.value, playlistId];
+    addOrUpdateData('user', 'playlists', userPlaylists.value);
     return '${context.l10n!.addedSuccess}!';
   } catch (e) {
     return '${context.l10n!.error}: $e';
@@ -290,7 +292,7 @@ bool removeSongFromPlaylist(
     if (playlist['source'] == 'user-created') {
       addOrUpdateData('user', 'customPlaylists', userCustomPlaylists.value);
     } else {
-      addOrUpdateData('user', 'playlists', userPlaylists);
+      addOrUpdateData('user', 'playlists', userPlaylists.value);
     }
 
     return true;
@@ -301,8 +303,9 @@ bool removeSongFromPlaylist(
 }
 
 void removeUserPlaylist(String playlistId) {
-  userPlaylists.remove(playlistId);
-  addOrUpdateData('user', 'playlists', userPlaylists);
+  final updatedPlaylists = List.from(userPlaylists.value)..remove(playlistId);
+  userPlaylists.value = updatedPlaylists;
+  addOrUpdateData('user', 'playlists', userPlaylists.value);
 }
 
 void removeUserCustomPlaylist(dynamic playlist) {
@@ -764,52 +767,68 @@ Future<String?> getSongLyrics(String artist, String title) async {
   return lyrics.value;
 }
 
-void makeSongOffline(dynamic song) async {
-  final _dir = await getApplicationSupportDirectory();
-  final _audioDirPath = '${_dir.path}/tracks';
-  final _artworkDirPath = '${_dir.path}/artworks';
-  final String ytid = song['ytid'];
-  final _audioFile = File('$_audioDirPath/$ytid.m4a');
-  final _artworkFile = File('$_artworkDirPath/$ytid.jpg');
+Future<void> makeSongOffline(dynamic song) async {
+  try {
+    final _dir = await getApplicationSupportDirectory();
+    final _audioDirPath = '${_dir.path}/tracks';
+    final _artworkDirPath = '${_dir.path}/artworks';
+    final String ytid = song['ytid'];
+    final _audioFile = File('$_audioDirPath/$ytid.m4a');
+    final _artworkFile = File('$_artworkDirPath/$ytid.jpg');
 
-  await Directory(_audioDirPath).create(recursive: true);
-  await Directory(_artworkDirPath).create(recursive: true);
+    await Directory(_audioDirPath).create(recursive: true);
+    await Directory(_artworkDirPath).create(recursive: true);
 
-  final audioManifest = await getSongManifest(ytid);
-  final stream = _yt.videos.streamsClient.get(audioManifest);
-  final fileStream = _audioFile.openWrite();
-  await stream.pipe(fileStream);
-  await fileStream.flush();
-  await fileStream.close();
+    try {
+      final audioManifest = await getSongManifest(ytid);
+      final stream = _yt.videos.streamsClient.get(audioManifest);
+      final fileStream = _audioFile.openWrite();
+      await stream.pipe(fileStream);
+      await fileStream.flush();
+      await fileStream.close();
+    } catch (e, stackTrace) {
+      logger.log('Error downloading audio file', e, stackTrace);
+      throw Exception('Failed to download audio: $e');
+    }
 
-  final artworkFile = await _downloadAndSaveArtworkFile(
-    song['highResImage'],
-    _artworkFile.path,
-  );
+    try {
+      final artworkFile = await _downloadAndSaveArtworkFile(
+        song['highResImage'],
+        _artworkFile.path,
+      );
 
-  if (artworkFile != null) {
-    song['artworkPath'] = artworkFile.path;
-    song['highResImage'] = artworkFile.path;
-    song['lowResImage'] = artworkFile.path;
+      if (artworkFile != null) {
+        song['artworkPath'] = artworkFile.path;
+        song['highResImage'] = artworkFile.path;
+        song['lowResImage'] = artworkFile.path;
+      }
+    } catch (e, stackTrace) {
+      logger.log('Error downloading artwork', e, stackTrace);
+    }
+
+    song['audioPath'] = _audioFile.path;
+    userOfflineSongs.add(song);
+    addOrUpdateData('userNoBackup', 'offlineSongs', userOfflineSongs);
+    currentOfflineSongsLength.value = userOfflineSongs.length;
+  } catch (e, stackTrace) {
+    logger.log('Error making song offline', e, stackTrace);
+    rethrow;
   }
-  song['audioPath'] = _audioFile.path;
-  userOfflineSongs.add(song);
-  addOrUpdateData('userNoBackup', 'offlineSongs', userOfflineSongs);
 }
 
-void removeSongFromOffline(dynamic songId) async {
+Future<void> removeSongFromOffline(dynamic songId) async {
   final _dir = await getApplicationSupportDirectory();
   final _audioDirPath = '${_dir.path}/tracks';
   final _artworkDirPath = '${_dir.path}/artworks';
   final _audioFile = File('$_audioDirPath/$songId.m4a');
   final _artworkFile = File('$_artworkDirPath/$songId.jpg');
 
-  if (await _audioFile.exists()) await _audioFile.delete();
-  if (await _artworkFile.exists()) await _artworkFile.delete();
+  if (await _audioFile.exists()) await _audioFile.delete(recursive: true);
+  if (await _artworkFile.exists()) await _artworkFile.delete(recursive: true);
 
   userOfflineSongs.removeWhere((song) => song['ytid'] == songId);
-  addOrUpdateData('userNoBackup', 'offlineSongs', userOfflineSongs);
   currentOfflineSongsLength.value = userOfflineSongs.length;
+  addOrUpdateData('userNoBackup', 'offlineSongs', userOfflineSongs);
 }
 
 Future<File?> _downloadAndSaveArtworkFile(String url, String filePath) async {
