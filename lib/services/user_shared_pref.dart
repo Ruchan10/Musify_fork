@@ -26,4 +26,15 @@ class UserSharedPrefs {
     if (songStrings == null) return [];
     return songStrings.map((song) => SongModel(jsonDecode(song))).toList();
   }
+
+  Future<void> setDownloadDir(String dir) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('downloadPath', dir);
+  }
+
+  static Future<String> getDownloadDir() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('downloadPath') ??
+        '/storage/emulated/0/Music/Musify';
+  }
 }

@@ -28,6 +28,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:musify_fork/API/musify.dart';
@@ -35,6 +36,7 @@ import 'package:musify_fork/extensions/l10n.dart';
 import 'package:musify_fork/localization/app_localizations.dart';
 import 'package:musify_fork/services/audio_service.dart';
 import 'package:musify_fork/services/data_manager.dart';
+import 'package:musify_fork/services/download_service.dart';
 import 'package:musify_fork/services/logger_service.dart';
 import 'package:musify_fork/services/playlist_sharing.dart';
 import 'package:musify_fork/services/router_service.dart';
@@ -181,6 +183,7 @@ class _MusifyState extends State<Musify> {
         );
 
         return MaterialApp.router(
+          scaffoldMessengerKey: DownloadHelper.snackbarKey,
           themeMode: themeMode,
           darkTheme: getAppTheme(colorScheme),
           theme: getAppTheme(colorScheme),
@@ -203,7 +206,8 @@ class _MusifyState extends State<Musify> {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initialisation();
-
+  await FlutterDownloader.initialize();
+  DownloadHelper.initialize();
   runApp(const Musify());
 }
 

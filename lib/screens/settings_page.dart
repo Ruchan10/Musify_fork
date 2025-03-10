@@ -19,6 +19,7 @@
  *     please visit: https://github.com/gokadzev/Musify
  */
 
+import 'package:file_picker/file_picker.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:musify_fork/API/musify.dart';
@@ -29,6 +30,7 @@ import 'package:musify_fork/services/data_manager.dart';
 import 'package:musify_fork/services/router_service.dart';
 import 'package:musify_fork/services/settings_manager.dart';
 import 'package:musify_fork/services/update_manager.dart';
+import 'package:musify_fork/services/user_shared_pref.dart';
 import 'package:musify_fork/style/app_colors.dart';
 import 'package:musify_fork/style/app_themes.dart';
 import 'package:musify_fork/utilities/common_variables.dart';
@@ -68,12 +70,23 @@ class SettingsPage extends StatelessWidget {
                 inactivatedColor,
                 primaryColor,
               ),
+
             _buildOthersSection(context),
             const SizedBox(height: 20),
           ],
         ),
       ),
     );
+  }
+
+  Future<void> _selectDownloadPath(BuildContext context) async {
+    final directoryPath = await FilePicker.platform.getDirectoryPath();
+
+    if (directoryPath != null) {
+      await UserSharedPrefs().setDownloadDir(directoryPath);
+
+      showToast(context, 'Download path set to: $directoryPath');
+    }
   }
 
   Widget _buildPreferencesSection(
@@ -181,6 +194,13 @@ class SettingsPage extends StatelessWidget {
     Color inactivatedColor,
     Color primaryColor,
   ) {
+    final downloadPathNotifier = ValueNotifier<String?>(null);
+    Future<void> getDownloadDir() async {
+      final dir = await UserSharedPrefs.getDownloadDir();
+      downloadPathNotifier.value = dir;
+    }
+
+    getDownloadDir();
     return Column(
       children: [
         ValueListenableBuilder<bool>(
@@ -227,7 +247,39 @@ class SettingsPage extends StatelessWidget {
             );
           },
         ),
-
+        Padding(
+          padding: commonBarPadding,
+          child: Card(
+            margin: const EdgeInsets.only(bottom: 3),
+            shape: const RoundedRectangleBorder(),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 3),
+              child: InkWell(
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onTap: () => _selectDownloadPath(context),
+                child: ValueListenableBuilder<String?>(
+                  valueListenable: downloadPathNotifier,
+                  builder: (context, path, _) {
+                    return ListTile(
+                      minTileHeight: 45,
+                      leading: const Icon(FluentIcons.folder_24_regular),
+                      title: const Text(
+                        'Download Path',
+                        style: TextStyle(fontWeight: FontWeight.w600),
+                      ),
+                      subtitle: Text(path ?? 'No download path set'),
+                      trailing: IconButton(
+                        icon: const Icon(Icons.folder_open),
+                        onPressed: () => _selectDownloadPath(context),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+          ),
+        ),
         _buildToolsSection(context),
         _buildSponsorSection(context, primaryColor),
       ],

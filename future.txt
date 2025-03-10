@@ -1,5 +1,6 @@
 ------------- FUTURE WORKS -------------
 
+- playing another song while a on device song is playing doesnt work
 - MAKE SONGS DOWNLOADABLE TO AUDIO(FLAC) files (Add where to save downloaded files)
 - automatically play next song after one finishes
 - when user clicks on a song it should start playing currently user has to click ont he resume button 
@@ -15,5 +16,4 @@
 - able to dismiss mini bar
 - add skip to next or prev button on the mini bar 
 - store the played song, able to resume where user left
-- tapping on mini player should expand it 
 - get rid of mull
