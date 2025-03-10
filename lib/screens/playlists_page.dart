@@ -20,12 +20,12 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:musify/API/musify.dart';
-import 'package:musify/extensions/l10n.dart';
-import 'package:musify/main.dart';
-import 'package:musify/widgets/custom_search_bar.dart';
-import 'package:musify/widgets/playlist_cube.dart';
-import 'package:musify/widgets/spinner.dart';
+import 'package:musify_fork/API/musify.dart';
+import 'package:musify_fork/extensions/l10n.dart';
+import 'package:musify_fork/main.dart';
+import 'package:musify_fork/widgets/custom_search_bar.dart';
+import 'package:musify_fork/widgets/playlist_cube.dart';
+import 'package:musify_fork/widgets/spinner.dart';
 
 class PlaylistsPage extends StatefulWidget {
   const PlaylistsPage({super.key});
@@ -54,11 +54,8 @@ class _PlaylistsPageState extends State<PlaylistsPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      appBar: AppBar(
-        title: Text(context.l10n!.playlists),
-      ),
+      appBar: AppBar(title: Text(context.l10n!.playlists)),
       body: Column(
         children: <Widget>[
           CustomSearchBar(
@@ -77,15 +74,15 @@ class _PlaylistsPageState extends State<PlaylistsPage> {
                 Switch(
                   value: _showOnlyAlbums,
                   onChanged: toggleShowOnlyAlbums,
-                  thumbIcon: WidgetStateProperty.resolveWith<Icon>(
-                    (Set<WidgetState> states) {
-                      return Icon(
-                        states.contains(WidgetState.selected)
-                            ? Icons.album
-                            : Icons.featured_play_list,
-                      );
-                    },
-                  ),
+                  thumbIcon: WidgetStateProperty.resolveWith<Icon>((
+                    Set<WidgetState> states,
+                  ) {
+                    return Icon(
+                      states.contains(WidgetState.selected)
+                          ? Icons.album
+                          : Icons.featured_play_list,
+                    );
+                  }),
                 ),
               ],
             ),
@@ -105,9 +102,7 @@ class _PlaylistsPageState extends State<PlaylistsPage> {
                     snapshot.error,
                     snapshot.stackTrace,
                   );
-                  return Center(
-                    child: Text(context.l10n!.error),
-                  );
+                  return Center(child: Text(context.l10n!.error));
                 }
 
                 final _playlists = snapshot.data as List;

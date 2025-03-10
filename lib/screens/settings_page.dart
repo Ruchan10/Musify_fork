@@ -21,24 +21,24 @@
 
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:musify/API/musify.dart';
-import 'package:musify/extensions/l10n.dart';
-import 'package:musify/main.dart';
-import 'package:musify/screens/search_page.dart';
-import 'package:musify/services/data_manager.dart';
-import 'package:musify/services/router_service.dart';
-import 'package:musify/services/settings_manager.dart';
-import 'package:musify/services/update_manager.dart';
-import 'package:musify/style/app_colors.dart';
-import 'package:musify/style/app_themes.dart';
-import 'package:musify/utilities/common_variables.dart';
-import 'package:musify/utilities/flutter_bottom_sheet.dart';
-import 'package:musify/utilities/flutter_toast.dart';
-import 'package:musify/utilities/utils.dart';
-import 'package:musify/widgets/bottom_sheet_bar.dart';
-import 'package:musify/widgets/confirmation_dialog.dart';
-import 'package:musify/widgets/custom_bar.dart';
-import 'package:musify/widgets/section_header.dart';
+import 'package:musify_fork/API/musify.dart';
+import 'package:musify_fork/extensions/l10n.dart';
+import 'package:musify_fork/main.dart';
+import 'package:musify_fork/screens/search_page.dart';
+import 'package:musify_fork/services/data_manager.dart';
+import 'package:musify_fork/services/router_service.dart';
+import 'package:musify_fork/services/settings_manager.dart';
+import 'package:musify_fork/services/update_manager.dart';
+import 'package:musify_fork/style/app_colors.dart';
+import 'package:musify_fork/style/app_themes.dart';
+import 'package:musify_fork/utilities/common_variables.dart';
+import 'package:musify_fork/utilities/flutter_bottom_sheet.dart';
+import 'package:musify_fork/utilities/flutter_toast.dart';
+import 'package:musify_fork/utilities/utils.dart';
+import 'package:musify_fork/widgets/bottom_sheet_bar.dart';
+import 'package:musify_fork/widgets/confirmation_dialog.dart';
+import 'package:musify_fork/widgets/custom_bar.dart';
+import 'package:musify_fork/widgets/section_header.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});

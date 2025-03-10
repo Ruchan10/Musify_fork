@@ -26,15 +26,15 @@ import 'dart:io';
 import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
-import 'package:musify/DB/albums.db.dart';
-import 'package:musify/DB/playlists.db.dart';
-import 'package:musify/extensions/l10n.dart';
-import 'package:musify/main.dart';
-import 'package:musify/services/data_manager.dart';
-import 'package:musify/services/lyrics_manager.dart';
-import 'package:musify/services/settings_manager.dart';
-import 'package:musify/utilities/flutter_toast.dart';
-import 'package:musify/utilities/formatter.dart';
+import 'package:musify_fork/DB/albums.db.dart';
+import 'package:musify_fork/DB/playlists.db.dart';
+import 'package:musify_fork/extensions/l10n.dart';
+import 'package:musify_fork/main.dart';
+import 'package:musify_fork/services/data_manager.dart';
+import 'package:musify_fork/services/lyrics_manager.dart';
+import 'package:musify_fork/services/settings_manager.dart';
+import 'package:musify_fork/utilities/flutter_toast.dart';
+import 'package:musify_fork/utilities/formatter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
@@ -712,7 +712,6 @@ Future<String> getLiveStreamUrl(String songId) async {
 }
 
 Future<String> getAudioUrl(String songId) async {
-
   final manifest = await _yt.videos.streamsClient.getManifest(songId);
 
   final audioQuality = selectAudioQuality(manifest.audioOnly.sortByBitrate());

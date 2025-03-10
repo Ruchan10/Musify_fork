@@ -24,18 +24,18 @@ import 'dart:math';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:musify/API/musify.dart';
-import 'package:musify/extensions/l10n.dart';
-import 'package:musify/main.dart';
-import 'package:musify/services/data_manager.dart';
-import 'package:musify/services/playlist_sharing.dart';
-import 'package:musify/utilities/common_variables.dart';
-import 'package:musify/utilities/flutter_toast.dart';
-import 'package:musify/utilities/utils.dart';
-import 'package:musify/widgets/playlist_cube.dart';
-import 'package:musify/widgets/playlist_header.dart';
-import 'package:musify/widgets/song_bar.dart';
-import 'package:musify/widgets/spinner.dart';
+import 'package:musify_fork/API/musify.dart';
+import 'package:musify_fork/extensions/l10n.dart';
+import 'package:musify_fork/main.dart';
+import 'package:musify_fork/services/data_manager.dart';
+import 'package:musify_fork/services/playlist_sharing.dart';
+import 'package:musify_fork/utilities/common_variables.dart';
+import 'package:musify_fork/utilities/flutter_toast.dart';
+import 'package:musify_fork/utilities/utils.dart';
+import 'package:musify_fork/widgets/playlist_cube.dart';
+import 'package:musify_fork/widgets/playlist_header.dart';
+import 'package:musify_fork/widgets/song_bar.dart';
+import 'package:musify_fork/widgets/spinner.dart';
 
 class PlaylistPage extends StatefulWidget {
   const PlaylistPage({

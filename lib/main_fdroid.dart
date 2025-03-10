@@ -19,7 +19,7 @@
  *     please visit: https://github.com/gokadzev/Musify
  */
 
-import 'package:musify/main.dart' as m;
+import 'package:musify_fork/main.dart' as m;
 
 void main() async {
   m.isFdroidBuild = true;

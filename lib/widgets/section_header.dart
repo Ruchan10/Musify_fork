@@ -20,7 +20,7 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:musify/widgets/section_title.dart';
+import 'package:musify_fork/widgets/section_title.dart';
 
 class SectionHeader extends StatelessWidget {
   const SectionHeader({super.key, required this.title, this.actionButton});

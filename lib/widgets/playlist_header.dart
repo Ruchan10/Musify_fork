@@ -20,7 +20,7 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:musify/extensions/l10n.dart';
+import 'package:musify_fork/extensions/l10n.dart';
 
 class PlaylistHeader extends StatelessWidget {
   const PlaylistHeader(this.image, this.title, this.songsLength, {super.key});

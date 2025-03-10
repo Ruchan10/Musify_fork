@@ -21,17 +21,16 @@
 
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:musify/API/version.dart';
-import 'package:musify/extensions/l10n.dart';
-import 'package:musify/services/update_manager.dart';
-import 'package:musify/utilities/common_variables.dart';
+import 'package:musify_fork/API/version.dart';
+import 'package:musify_fork/extensions/l10n.dart';
+import 'package:musify_fork/services/update_manager.dart';
+import 'package:musify_fork/utilities/common_variables.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(title: Text(context.l10n!.about)),
       body: SingleChildScrollView(
@@ -86,7 +85,9 @@ class AboutPage extends StatelessWidget {
                       icon: const Icon(FluentIcons.globe_24_filled),
                       tooltip: 'Website',
                       onPressed: () {
-                        launchURL(Uri.parse('hhttps://ruchan10.github.io/portfolio/'));
+                        launchURL(
+                          Uri.parse('hhttps://ruchan10.github.io/portfolio/'),
+                        );
                       },
                     ),
                   ],

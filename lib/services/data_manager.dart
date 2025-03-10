@@ -24,8 +24,8 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:musify/extensions/l10n.dart';
-import 'package:musify/main.dart';
+import 'package:musify_fork/extensions/l10n.dart';
+import 'package:musify_fork/main.dart';
 
 void addOrUpdateData(String category, String key, dynamic value) async {
   final _box = await _openBox(category);

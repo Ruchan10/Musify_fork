@@ -21,18 +21,18 @@
 
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:musify/API/musify.dart';
-import 'package:musify/extensions/l10n.dart';
-import 'package:musify/main.dart';
-import 'package:musify/screens/playlist_page.dart';
-import 'package:musify/services/settings_manager.dart';
-import 'package:musify/utilities/common_variables.dart';
-import 'package:musify/utilities/utils.dart';
-import 'package:musify/widgets/announcement_box.dart';
-import 'package:musify/widgets/playlist_cube.dart';
-import 'package:musify/widgets/section_header.dart';
-import 'package:musify/widgets/song_bar.dart';
-import 'package:musify/widgets/spinner.dart';
+import 'package:musify_fork/API/musify.dart';
+import 'package:musify_fork/extensions/l10n.dart';
+import 'package:musify_fork/main.dart';
+import 'package:musify_fork/screens/playlist_page.dart';
+import 'package:musify_fork/services/settings_manager.dart';
+import 'package:musify_fork/utilities/common_variables.dart';
+import 'package:musify_fork/utilities/utils.dart';
+import 'package:musify_fork/widgets/announcement_box.dart';
+import 'package:musify_fork/widgets/playlist_cube.dart';
+import 'package:musify_fork/widgets/section_header.dart';
+import 'package:musify_fork/widgets/song_bar.dart';
+import 'package:musify_fork/widgets/spinner.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -117,7 +117,7 @@ class _HomePageState extends State<HomePage> {
 
         return Column(
           children: [
-             SectionHeader(title: context.l10n!.suggestedPlaylists),
+            SectionHeader(title: context.l10n!.suggestedPlaylists),
             ConstrainedBox(
               constraints: BoxConstraints(maxHeight: playlistHeight),
               child:

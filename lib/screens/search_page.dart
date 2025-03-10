@@ -22,18 +22,18 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:musify/API/musify.dart';
-import 'package:musify/extensions/l10n.dart';
-import 'package:musify/main.dart';
-import 'package:musify/services/data_manager.dart';
-import 'package:musify/utilities/common_variables.dart';
-import 'package:musify/utilities/utils.dart';
-import 'package:musify/widgets/confirmation_dialog.dart';
-import 'package:musify/widgets/custom_bar.dart';
-import 'package:musify/widgets/custom_search_bar.dart';
-import 'package:musify/widgets/playlist_bar.dart';
-import 'package:musify/widgets/section_title.dart';
-import 'package:musify/widgets/song_bar.dart';
+import 'package:musify_fork/API/musify.dart';
+import 'package:musify_fork/extensions/l10n.dart';
+import 'package:musify_fork/main.dart';
+import 'package:musify_fork/services/data_manager.dart';
+import 'package:musify_fork/utilities/common_variables.dart';
+import 'package:musify_fork/utilities/utils.dart';
+import 'package:musify_fork/widgets/confirmation_dialog.dart';
+import 'package:musify_fork/widgets/custom_bar.dart';
+import 'package:musify_fork/widgets/custom_search_bar.dart';
+import 'package:musify_fork/widgets/playlist_bar.dart';
+import 'package:musify_fork/widgets/section_title.dart';
+import 'package:musify_fork/widgets/song_bar.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});

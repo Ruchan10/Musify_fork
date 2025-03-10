@@ -21,8 +21,8 @@
 
 import 'dart:convert';
 
-import 'package:musify/main.dart';
-import 'package:musify/utilities/formatter.dart';
+import 'package:musify_fork/main.dart';
+import 'package:musify_fork/utilities/formatter.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
 class PlaylistSharingService {

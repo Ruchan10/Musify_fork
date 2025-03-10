@@ -24,14 +24,14 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:musify/API/musify.dart';
-import 'package:musify/extensions/l10n.dart';
-import 'package:musify/main.dart';
-import 'package:musify/services/download_service.dart';
-import 'package:musify/utilities/common_variables.dart';
-import 'package:musify/utilities/flutter_toast.dart';
-import 'package:musify/utilities/formatter.dart';
-import 'package:musify/widgets/no_artwork_cube.dart';
+import 'package:musify_fork/API/musify.dart';
+import 'package:musify_fork/extensions/l10n.dart';
+import 'package:musify_fork/main.dart';
+import 'package:musify_fork/services/download_service.dart';
+import 'package:musify_fork/utilities/common_variables.dart';
+import 'package:musify_fork/utilities/flutter_toast.dart';
+import 'package:musify_fork/utilities/formatter.dart';
+import 'package:musify_fork/widgets/no_artwork_cube.dart';
 
 class SongBar extends StatelessWidget {
   SongBar(

@@ -23,10 +23,10 @@ import 'package:audio_service/audio_service.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:musify/extensions/l10n.dart';
-import 'package:musify/main.dart';
-import 'package:musify/services/settings_manager.dart';
-import 'package:musify/widgets/mini_player.dart';
+import 'package:musify_fork/extensions/l10n.dart';
+import 'package:musify_fork/main.dart';
+import 'package:musify_fork/services/settings_manager.dart';
+import 'package:musify_fork/widgets/mini_player.dart';
 
 class BottomNavigationPage extends StatefulWidget {
   const BottomNavigationPage({super.key, required this.child});

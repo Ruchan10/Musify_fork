@@ -23,22 +23,22 @@ import 'package:audio_service/audio_service.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_flip_card/flutter_flip_card.dart';
-import 'package:musify/API/musify.dart';
-import 'package:musify/extensions/l10n.dart';
-import 'package:musify/main.dart';
-import 'package:musify/models/position_data.dart';
-import 'package:musify/services/settings_manager.dart';
-import 'package:musify/utilities/common_variables.dart';
-import 'package:musify/utilities/flutter_bottom_sheet.dart';
-import 'package:musify/utilities/flutter_toast.dart';
-import 'package:musify/utilities/formatter.dart';
-import 'package:musify/utilities/mediaitem.dart';
-import 'package:musify/utilities/utils.dart';
-import 'package:musify/widgets/marque.dart';
-import 'package:musify/widgets/playback_icon_button.dart';
-import 'package:musify/widgets/song_artwork.dart';
-import 'package:musify/widgets/song_bar.dart';
-import 'package:musify/widgets/spinner.dart';
+import 'package:musify_fork/API/musify.dart';
+import 'package:musify_fork/extensions/l10n.dart';
+import 'package:musify_fork/main.dart';
+import 'package:musify_fork/models/position_data.dart';
+import 'package:musify_fork/services/settings_manager.dart';
+import 'package:musify_fork/utilities/common_variables.dart';
+import 'package:musify_fork/utilities/flutter_bottom_sheet.dart';
+import 'package:musify_fork/utilities/flutter_toast.dart';
+import 'package:musify_fork/utilities/formatter.dart';
+import 'package:musify_fork/utilities/mediaitem.dart';
+import 'package:musify_fork/utilities/utils.dart';
+import 'package:musify_fork/widgets/marque.dart';
+import 'package:musify_fork/widgets/playback_icon_button.dart';
+import 'package:musify_fork/widgets/song_artwork.dart';
+import 'package:musify_fork/widgets/song_bar.dart';
+import 'package:musify_fork/widgets/spinner.dart';
 
 final _lyricsController = FlipCardController();
 
@@ -46,7 +46,6 @@ class NowPlayingPage extends StatelessWidget {
   const NowPlayingPage({super.key});
   @override
   Widget build(BuildContext context) {
-
     final size = MediaQuery.sizeOf(context);
     final isLargeScreen = size.width > 800;
     const adjustedIconSize = 43.0;

@@ -23,12 +23,12 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:musify/API/version.dart';
-import 'package:musify/extensions/l10n.dart';
-import 'package:musify/main.dart';
-import 'package:musify/services/router_service.dart';
-import 'package:musify/services/settings_manager.dart';
-import 'package:musify/widgets/auto_format_text.dart';
+import 'package:musify_fork/API/version.dart';
+import 'package:musify_fork/extensions/l10n.dart';
+import 'package:musify_fork/main.dart';
+import 'package:musify_fork/services/router_service.dart';
+import 'package:musify_fork/services/settings_manager.dart';
+import 'package:musify_fork/widgets/auto_format_text.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 const String checkUrl =

@@ -23,17 +23,17 @@ import 'dart:io';
 
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:musify/API/musify.dart';
-import 'package:musify/extensions/l10n.dart';
-import 'package:musify/screens/device_songs_page.dart';
-import 'package:musify/services/router_service.dart';
-import 'package:musify/utilities/common_variables.dart';
-import 'package:musify/utilities/flutter_toast.dart';
-import 'package:musify/utilities/utils.dart';
-import 'package:musify/widgets/confirmation_dialog.dart';
-import 'package:musify/widgets/playlist_bar.dart';
-import 'package:musify/widgets/section_header.dart';
-import 'package:musify/widgets/section_title.dart';
+import 'package:musify_fork/API/musify.dart';
+import 'package:musify_fork/extensions/l10n.dart';
+import 'package:musify_fork/screens/device_songs_page.dart';
+import 'package:musify_fork/services/router_service.dart';
+import 'package:musify_fork/utilities/common_variables.dart';
+import 'package:musify_fork/utilities/flutter_toast.dart';
+import 'package:musify_fork/utilities/utils.dart';
+import 'package:musify_fork/widgets/confirmation_dialog.dart';
+import 'package:musify_fork/widgets/playlist_bar.dart';
+import 'package:musify_fork/widgets/section_header.dart';
+import 'package:musify_fork/widgets/section_title.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:permission_handler/permission_handler.dart';
 

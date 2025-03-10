@@ -21,15 +21,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:musify/API/version.dart';
-import 'package:musify/screens/about_page.dart';
-import 'package:musify/screens/bottom_navigation_page.dart';
-import 'package:musify/screens/home_page.dart';
-import 'package:musify/screens/library_page.dart';
-import 'package:musify/screens/search_page.dart';
-import 'package:musify/screens/settings_page.dart';
-import 'package:musify/screens/user_songs_page.dart';
-import 'package:musify/services/settings_manager.dart';
+import 'package:musify_fork/API/version.dart';
+import 'package:musify_fork/screens/about_page.dart';
+import 'package:musify_fork/screens/bottom_navigation_page.dart';
+import 'package:musify_fork/screens/home_page.dart';
+import 'package:musify_fork/screens/library_page.dart';
+import 'package:musify_fork/screens/search_page.dart';
+import 'package:musify_fork/screens/settings_page.dart';
+import 'package:musify_fork/screens/user_songs_page.dart';
+import 'package:musify_fork/services/settings_manager.dart';
 
 class NavigationManager {
   factory NavigationManager() {

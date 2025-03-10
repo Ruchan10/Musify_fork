@@ -20,7 +20,7 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:musify/services/update_manager.dart';
+import 'package:musify_fork/services/update_manager.dart';
 
 class AnnouncementBox extends StatelessWidget {
   const AnnouncementBox({

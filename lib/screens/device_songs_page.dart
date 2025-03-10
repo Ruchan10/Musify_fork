@@ -2,14 +2,14 @@ import 'dart:typed_data';
 
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:musify/API/musify.dart';
-import 'package:musify/extensions/l10n.dart';
-import 'package:musify/main.dart';
-import 'package:musify/services/audio_service.dart';
-import 'package:musify/services/user_shared_pref.dart';
-import 'package:musify/widgets/playlist_cube.dart';
-import 'package:musify/widgets/playlist_header.dart';
-import 'package:musify/widgets/song_bar.dart';
+import 'package:musify_fork/API/musify.dart';
+import 'package:musify_fork/extensions/l10n.dart';
+import 'package:musify_fork/main.dart';
+import 'package:musify_fork/services/audio_service.dart';
+import 'package:musify_fork/services/user_shared_pref.dart';
+import 'package:musify_fork/widgets/playlist_cube.dart';
+import 'package:musify_fork/widgets/playlist_header.dart';
+import 'package:musify_fork/widgets/song_bar.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

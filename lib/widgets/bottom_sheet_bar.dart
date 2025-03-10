@@ -20,7 +20,7 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:musify/utilities/common_variables.dart';
+import 'package:musify_fork/utilities/common_variables.dart';
 
 class BottomSheetBar extends StatelessWidget {
   const BottomSheetBar(

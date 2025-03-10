@@ -20,9 +20,9 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:musify/API/musify.dart';
-import 'package:musify/extensions/l10n.dart';
-import 'package:musify/widgets/playlist_cube.dart';
+import 'package:musify_fork/API/musify.dart';
+import 'package:musify_fork/extensions/l10n.dart';
+import 'package:musify_fork/widgets/playlist_cube.dart';
 
 class UserLikedPlaylistsPage extends StatelessWidget {
   const UserLikedPlaylistsPage({super.key});

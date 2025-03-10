@@ -22,11 +22,11 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:musify/main.dart';
-import 'package:musify/screens/now_playing_page.dart';
-import 'package:musify/widgets/marque.dart';
-import 'package:musify/widgets/playback_icon_button.dart';
-import 'package:musify/widgets/song_artwork.dart';
+import 'package:musify_fork/main.dart';
+import 'package:musify_fork/screens/now_playing_page.dart';
+import 'package:musify_fork/widgets/marque.dart';
+import 'package:musify_fork/widgets/playback_icon_button.dart';
+import 'package:musify_fork/widgets/song_artwork.dart';
 
 class MiniPlayer extends StatelessWidget {
   MiniPlayer({super.key, required this.metadata});

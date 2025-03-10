@@ -20,8 +20,8 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:musify/style/shapes/md3_slider_thumb.dart';
-import 'package:musify/widgets/squiggly_slider_track_shape.dart';
+import 'package:musify_fork/style/shapes/md3_slider_thumb.dart';
+import 'package:musify_fork/widgets/squiggly_slider_track_shape.dart';
 
 class CustomSlider extends StatefulWidget {
   const CustomSlider({
@@ -86,23 +86,22 @@ class _CustomSliderState extends State<CustomSlider>
     super.initState();
     if (widget.isSquiglySliderEnabled) {
       if (widget.squiggleSpeed == 0) {
-        phaseController = AnimationController(
-          vsync: this,
-        );
+        phaseController = AnimationController(vsync: this);
         phaseController.value = 0.5;
       } else {
-        phaseController = AnimationController(
-          duration: Duration(
-            milliseconds: (1000.0 / widget.squiggleSpeed.abs()).round(),
-          ),
-          vsync: this,
-        )
-          ..repeat(min: 0, max: 1)
-          ..addListener(() {
-            setState(() {
-              // The state that has changed here is the animation object’s value.
-            });
-          });
+        phaseController =
+            AnimationController(
+                duration: Duration(
+                  milliseconds: (1000.0 / widget.squiggleSpeed.abs()).round(),
+                ),
+                vsync: this,
+              )
+              ..repeat(min: 0, max: 1)
+              ..addListener(() {
+                setState(() {
+                  // The state that has changed here is the animation object’s value.
+                });
+              });
       }
     }
   }
@@ -117,24 +116,28 @@ class _CustomSliderState extends State<CustomSlider>
   Widget build(BuildContext context) {
     return SliderTheme(
       data: SliderTheme.of(context).copyWith(
-        inactiveTrackColor: widget.isSquiglySliderEnabled
-            ? null
-            : Theme.of(context).colorScheme.secondaryContainer,
+        inactiveTrackColor:
+            widget.isSquiglySliderEnabled
+                ? null
+                : Theme.of(context).colorScheme.secondaryContainer,
         trackHeight: widget.isSquiglySliderEnabled ? null : 8.5,
-        thumbShape: widget.isSquiglySliderEnabled
-            ? null
-            : Material3SliderThumb(
-                borderColor: Theme.of(context).colorScheme.surface,
-              ),
-        trackShape: widget.isSquiglySliderEnabled
-            ? SquigglySliderTrackShape(
-                squiggleAmplitude: widget.squiggleAmplitude,
-                squiggleWavelength: widget.squiggleWavelength,
-                squigglePhaseFactor: widget.squiggleSpeed < 0
-                    ? 1 - phaseController.value
-                    : phaseController.value,
-              )
-            : const RoundedRectSliderTrackShape(),
+        thumbShape:
+            widget.isSquiglySliderEnabled
+                ? null
+                : Material3SliderThumb(
+                  borderColor: Theme.of(context).colorScheme.surface,
+                ),
+        trackShape:
+            widget.isSquiglySliderEnabled
+                ? SquigglySliderTrackShape(
+                  squiggleAmplitude: widget.squiggleAmplitude,
+                  squiggleWavelength: widget.squiggleWavelength,
+                  squigglePhaseFactor:
+                      widget.squiggleSpeed < 0
+                          ? 1 - phaseController.value
+                          : phaseController.value,
+                )
+                : const RoundedRectSliderTrackShape(),
       ),
       child: Slider(
         key: widget.key,

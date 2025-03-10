@@ -22,11 +22,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:musify/API/musify.dart';
-import 'package:musify/extensions/l10n.dart';
-import 'package:musify/screens/playlist_page.dart';
-import 'package:musify/utilities/common_variables.dart';
-import 'package:musify/widgets/no_artwork_cube.dart';
+import 'package:musify_fork/API/musify.dart';
+import 'package:musify_fork/extensions/l10n.dart';
+import 'package:musify_fork/screens/playlist_page.dart';
+import 'package:musify_fork/utilities/common_variables.dart';
+import 'package:musify_fork/widgets/no_artwork_cube.dart';
 
 class PlaylistBar extends StatelessWidget {
   PlaylistBar(
@@ -42,8 +42,8 @@ class PlaylistBar extends StatelessWidget {
     this.isAlbum = false,
     this.borderRadius = BorderRadius.zero,
   }) : playlistLikeStatus = ValueNotifier<bool>(
-          isPlaylistAlreadyLiked(playlistId),
-        );
+         isPlaylistAlreadyLiked(playlistId),
+       );
 
   final Map? playlistData;
   final String? playlistId;
@@ -73,15 +73,17 @@ class PlaylistBar extends StatelessWidget {
     return Padding(
       padding: commonBarPadding,
       child: GestureDetector(
-        onTap: onPressed ??
+        onTap:
+            onPressed ??
             () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => PlaylistPage(
-                    playlistId: playlistId,
-                    playlistData: updatedPlaylist ?? playlistData,
-                  ),
+                  builder:
+                      (context) => PlaylistPage(
+                        playlistId: playlistId,
+                        playlistData: updatedPlaylist ?? playlistData,
+                      ),
                 ),
               ).then((isPlaylistUpdated) {
                 if (isPlaylistUpdated != null && isPlaylistUpdated) {
@@ -127,30 +129,32 @@ class PlaylistBar extends StatelessWidget {
   Widget _buildAlbumArt() {
     return playlistArtwork != null
         ? CachedNetworkImage(
-            key: Key(playlistArtwork.toString()),
-            height: artworkSize,
-            width: artworkSize,
-            imageUrl: playlistArtwork.toString(),
-            fit: BoxFit.cover,
-            imageBuilder: (context, imageProvider) => SizedBox(
-              width: artworkSize,
-              height: artworkSize,
-              child: ClipRRect(
-                borderRadius: commonBarRadius,
-                child: Image(image: imageProvider),
+          key: Key(playlistArtwork.toString()),
+          height: artworkSize,
+          width: artworkSize,
+          imageUrl: playlistArtwork.toString(),
+          fit: BoxFit.cover,
+          imageBuilder:
+              (context, imageProvider) => SizedBox(
+                width: artworkSize,
+                height: artworkSize,
+                child: ClipRRect(
+                  borderRadius: commonBarRadius,
+                  child: Image(image: imageProvider),
+                ),
               ),
-            ),
-            errorWidget: (context, url, error) => NullArtworkWidget(
-              icon: cubeIcon,
-              iconSize: iconSize,
-              size: artworkSize,
-            ),
-          )
+          errorWidget:
+              (context, url, error) => NullArtworkWidget(
+                icon: cubeIcon,
+                iconSize: iconSize,
+                size: artworkSize,
+              ),
+        )
         : NullArtworkWidget(
-            icon: cubeIcon,
-            iconSize: iconSize,
-            size: artworkSize,
-          );
+          icon: cubeIcon,
+          iconSize: iconSize,
+          size: artworkSize,
+        );
   }
 
   Widget _buildActionButtons(BuildContext context, Color primaryColor) {

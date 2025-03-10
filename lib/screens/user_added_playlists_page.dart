@@ -23,17 +23,17 @@ import 'dart:io';
 
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:musify/API/musify.dart';
-import 'package:musify/extensions/l10n.dart';
-import 'package:musify/main.dart';
-import 'package:musify/screens/device_songs_page.dart';
-import 'package:musify/screens/playlist_page.dart';
-import 'package:musify/services/router_service.dart';
-import 'package:musify/utilities/flutter_toast.dart';
-import 'package:musify/widgets/confirmation_dialog.dart';
-import 'package:musify/widgets/playlist_bar.dart';
-import 'package:musify/widgets/playlist_cube.dart';
-import 'package:musify/widgets/spinner.dart';
+import 'package:musify_fork/API/musify.dart';
+import 'package:musify_fork/extensions/l10n.dart';
+import 'package:musify_fork/main.dart';
+import 'package:musify_fork/screens/device_songs_page.dart';
+import 'package:musify_fork/screens/playlist_page.dart';
+import 'package:musify_fork/services/router_service.dart';
+import 'package:musify_fork/utilities/flutter_toast.dart';
+import 'package:musify_fork/widgets/confirmation_dialog.dart';
+import 'package:musify_fork/widgets/playlist_bar.dart';
+import 'package:musify_fork/widgets/playlist_cube.dart';
+import 'package:musify_fork/widgets/spinner.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -63,9 +63,7 @@ class _UserPlaylistsPageState extends State<UserPlaylistsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(context.l10n!.userPlaylists),
-      ),
+      appBar: AppBar(title: Text(context.l10n!.userPlaylists)),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showDialog(
@@ -99,12 +97,14 @@ class _UserPlaylistsPageState extends State<UserPlaylistsPage> {
                                   });
                                 },
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: isYouTubeMode
-                                      ? inactiveButtonBackground
-                                      : activeButtonBackground,
+                                  backgroundColor:
+                                      isYouTubeMode
+                                          ? inactiveButtonBackground
+                                          : activeButtonBackground,
                                 ),
-                                child:
-                                    const Icon(FluentIcons.globe_add_24_filled),
+                                child: const Icon(
+                                  FluentIcons.globe_add_24_filled,
+                                ),
                               ),
                               const SizedBox(width: 10),
                               ElevatedButton(
@@ -117,9 +117,10 @@ class _UserPlaylistsPageState extends State<UserPlaylistsPage> {
                                   });
                                 },
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: isYouTubeMode
-                                      ? activeButtonBackground
-                                      : inactiveButtonBackground,
+                                  backgroundColor:
+                                      isYouTubeMode
+                                          ? activeButtonBackground
+                                          : inactiveButtonBackground,
                                 ),
                                 child: const Icon(
                                   FluentIcons.person_add_24_filled,
@@ -162,9 +163,7 @@ class _UserPlaylistsPageState extends State<UserPlaylistsPage> {
                     ),
                     actions: <Widget>[
                       TextButton(
-                        child: Text(
-                          context.l10n!.add.toUpperCase(),
-                        ),
+                        child: Text(context.l10n!.add.toUpperCase()),
                         onPressed: () async {
                           if (isYouTubeMode && id.isNotEmpty) {
                             showToast(
@@ -211,29 +210,36 @@ class _UserPlaylistsPageState extends State<UserPlaylistsPage> {
             children: <Widget>[
               PlaylistBar(
                 context.l10n!.recentlyPlayed,
-                onPressed: () => NavigationManager.router
-                    .go('/userPlaylists/userSongs/recents'),
+                onPressed:
+                    () => NavigationManager.router.go(
+                      '/userPlaylists/userSongs/recents',
+                    ),
                 cubeIcon: FluentIcons.history_24_filled,
                 showBuildActions: false,
               ),
               PlaylistBar(
                 context.l10n!.playlist,
-                onPressed: () =>
-                    NavigationManager.router.go('/userPlaylists/playlists'),
+                onPressed:
+                    () =>
+                        NavigationManager.router.go('/userPlaylists/playlists'),
                 cubeIcon: FluentIcons.list_24_filled,
                 showBuildActions: false,
               ),
               PlaylistBar(
                 context.l10n!.likedSongs,
-                onPressed: () => NavigationManager.router
-                    .go('/userPlaylists/userSongs/liked'),
+                onPressed:
+                    () => NavigationManager.router.go(
+                      '/userPlaylists/userSongs/liked',
+                    ),
                 cubeIcon: FluentIcons.music_note_2_24_regular,
                 showBuildActions: false,
               ),
               PlaylistBar(
                 context.l10n!.likedPlaylists,
-                onPressed: () => NavigationManager.router
-                    .go('/userPlaylists/userLikedPlaylists'),
+                onPressed:
+                    () => NavigationManager.router.go(
+                      '/userPlaylists/userLikedPlaylists',
+                    ),
                 cubeIcon: FluentIcons.task_list_ltr_24_regular,
                 showBuildActions: false,
               ),
@@ -254,9 +260,7 @@ class _UserPlaylistsPageState extends State<UserPlaylistsPage> {
                       snapshot.error,
                       snapshot.stackTrace,
                     );
-                    return Center(
-                      child: Text(context.l10n!.error),
-                    );
+                    return Center(child: Text(context.l10n!.error));
                   }
 
                   final _playlists = snapshot.data as List;
@@ -264,10 +268,10 @@ class _UserPlaylistsPageState extends State<UserPlaylistsPage> {
                   return GridView.builder(
                     gridDelegate:
                         const SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent: 200,
-                      crossAxisSpacing: 20,
-                      mainAxisSpacing: 20,
-                    ),
+                          maxCrossAxisExtent: 200,
+                          crossAxisSpacing: 20,
+                          mainAxisSpacing: 20,
+                        ),
                     shrinkWrap: true,
                     physics: const ScrollPhysics(),
                     itemCount: _playlists.length,
@@ -277,20 +281,23 @@ class _UserPlaylistsPageState extends State<UserPlaylistsPage> {
                       final ytid = playlist['ytid'];
 
                       return GestureDetector(
-                        onTap: playlist['isCustom'] ?? false
-                            ? () async {
-                                final result = await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        PlaylistPage(playlistData: playlist),
-                                  ),
-                                );
-                                if (result == false) {
-                                  setState(() {});
+                        onTap:
+                            playlist['isCustom'] ?? false
+                                ? () async {
+                                  final result = await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder:
+                                          (context) => PlaylistPage(
+                                            playlistData: playlist,
+                                          ),
+                                    ),
+                                  );
+                                  if (result == false) {
+                                    setState(() {});
+                                  }
                                 }
-                              }
-                            : null,
+                                : null,
                         onLongPress: () {
                           showDialog(
                             context: context,
@@ -383,7 +390,7 @@ class _UserPlaylistsPageState extends State<UserPlaylistsPage> {
     );
   }
 
-// Create an instance of OnAudioQuery
+  // Create an instance of OnAudioQuery
   final OnAudioQuery audioQuery = OnAudioQuery();
 
   Future<void> _checkPermissionAndScanDevice(BuildContext context) async {
@@ -425,9 +432,7 @@ class _UserPlaylistsPageState extends State<UserPlaylistsPage> {
     if (songs.isNotEmpty) {
       await Navigator.push(
         context,
-        MaterialPageRoute(
-          builder: (context) => const DeviceSongsPage(),
-        ),
+        MaterialPageRoute(builder: (context) => const DeviceSongsPage()),
       );
     } else {
       showToast(context, 'No songs found on the device');
