@@ -27,6 +27,7 @@ import 'package:musify_fork/API/musify.dart';
 import 'package:musify_fork/extensions/l10n.dart';
 import 'package:musify_fork/main.dart';
 import 'package:musify_fork/models/position_data.dart';
+import 'package:musify_fork/services/download_service.dart';
 import 'package:musify_fork/services/settings_manager.dart';
 import 'package:musify_fork/utilities/common_variables.dart';
 import 'package:musify_fork/utilities/flutter_bottom_sheet.dart';
@@ -681,7 +682,30 @@ class BottomActionsRow extends StatelessWidget {
           _buildSleepTimerButton(context, _primaryColor),
           _buildLikeButton(songLikeStatus, _primaryColor),
         ],
+        if (metadata.id != 'null') ...[
+          _buildDownloadButton(songOfflineStatus, _primaryColor),
+        ],
       ],
+    );
+  }
+
+  Widget _buildDownloadButton(ValueNotifier<bool> status, Color primaryColor) {
+    return ValueListenableBuilder<bool>(
+      valueListenable: status,
+      builder: (_, value, __) {
+        return IconButton.filledTonal(
+          icon: Icon(Icons.download_outlined, color: primaryColor),
+          iconSize: iconSize,
+          onPressed: () {
+            DownloadHelper.downloadAudio(
+              metadata.extras?['ytid'],
+              metadata.title,
+              metadata.artist!,
+              context,
+            );
+          },
+        );
+      },
     );
   }
 

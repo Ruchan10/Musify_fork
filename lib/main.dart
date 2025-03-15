@@ -62,6 +62,7 @@ const appLanguages = <String, String>{
   'French': 'fr',
   'German': 'de',
   'Greek': 'el',
+  'Hindi': 'hi',
   'Indonesian': 'id',
   'Italian': 'it',
   'Japanese': 'ja',
@@ -70,6 +71,7 @@ const appLanguages = <String, String>{
   'Polish': 'pl',
   'Portuguese': 'pt',
   'Spanish': 'es',
+  'Turkish': 'tr',
   'Ukrainian': 'uk',
 };
 
@@ -234,18 +236,6 @@ Future<void> initialisation() async {
 
     // Init router
     NavigationManager.instance;
-
-    // Init clients
-    if (clientsSetting.value.isNotEmpty) {
-      final chosenClients = <YoutubeApiClient>[];
-      for (final client in clientsSetting.value) {
-        final _client = clients[client];
-        if (_client != null) {
-          chosenClients.add(_client);
-        }
-      }
-      userChosenClients = chosenClients;
-    }
 
     try {
       // Listen to incoming links while app is running

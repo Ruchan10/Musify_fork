@@ -1,11 +1,14 @@
 {
+  "hi": [
+    "folders"
+  ],
+
   "ka": [
     "addToLikedPlaylists",
     "addToLikedSongs",
     "addedPlaylists",
     "albums",
     "chooseBackupFiles",
-    "client",
     "customPlaylists",
     "deletePlaylist",
     "hours",
@@ -30,33 +33,7 @@
   ],
 
   "tr": [
-    "addToLikedPlaylists",
-    "addToLikedSongs",
-    "addedPlaylists",
-    "albums",
-    "chooseBackupFiles",
-    "client",
-    "customPlaylists",
-    "deletePlaylist",
-    "hours",
-    "invalidYouTubePlaylist",
-    "library",
-    "makeOffline",
-    "minutes",
-    "newAnnouncement",
-    "noSongsInQueue",
-    "predictiveBack",
-    "pureBlackTheme",
-    "removeFromLikedPlaylists",
-    "removeFromLikedSongs",
-    "removeFromPlaylist",
-    "removeOffline",
-    "selectDuration",
-    "setSleepTimer",
-    "setTimer",
-    "songAddedToOffline",
-    "songAlreadyInPlaylist",
-    "songRemovedFromOffline"
+    "folders"
   ],
 
   "zh": [

@@ -5,12 +5,13 @@
 🎵 **A feature-rich music player with local song support!**  
 
 ## 🔥 **About This Fork**
-This fork of **Musify** brings **local song playback support**, allowing you to enjoy your on device music collection seamlessly. Unlike the original version, which primarily focused on streaming, this version ensures a **smooth experience for both online and offline listening**.
+This fork of **Musify** brings **local song playback** and **download support** to the app, allowing you to enjoy your on device music collection seamlessly. Unlike the original version, which primarily focused on streaming, this version ensures a **smooth experience for both online and offline listening**.
 
 ---
 
 ## 🎶 **Features**
 ✔️ **Play Local Songs** – Browse and play audio files stored on your device.  
+✔️ **Download Song** – Search and download songs to your device.  
 ✔️ **Stream Online Music** – Search and play songs from online sources.  
 ✔️ **Create Custom Playlists** – Organize songs the way you like.  
 ✔️ **Lyrics Support** – See lyrics for songs as they play.  
@@ -32,6 +33,11 @@ This fork of **Musify** brings **local song playback support**, allowing you to 
 
 ---
 
+## 📥 **Credits**
+Original Musify by [Valeri Gokadze](https://github.com/gokadzev/Musify) 
+
+---
+
 ## 📥 **Download**
 1. Navigate to the [Releases](https://github.com/Ruchan10/Musify_fork/releases) section of this repository.  
 2. Download the latest APK.  
@@ -46,3 +52,5 @@ git clone https://github.com/Ruchan10/Musify_fork.git
 cd Musify_fork
 flutter pub get
 flutter run 
+
+---

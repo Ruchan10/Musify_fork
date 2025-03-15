@@ -32,9 +32,21 @@ class UserSharedPrefs {
     await prefs.setString('downloadPath', dir);
   }
 
+  static Future<void> setPlayingSong(Map song) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('playingSong', jsonEncode(song));
+  }
+
   static Future<String> getDownloadDir() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString('downloadPath') ??
         '/storage/emulated/0/Music/Musify';
+  }
+
+  static Future<Map?> getPlayingSong() async {
+    final prefs = await SharedPreferences.getInstance();
+    final songString = prefs.getString('playingSong');
+    if (songString == null) return null;
+    return jsonDecode(songString);
   }
 }

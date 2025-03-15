@@ -28,7 +28,6 @@ import 'package:musify_fork/API/musify.dart';
 import 'package:musify_fork/extensions/l10n.dart';
 import 'package:musify_fork/main.dart';
 import 'package:musify_fork/services/download_service.dart';
-import 'package:musify_fork/services/user_shared_pref.dart';
 import 'package:musify_fork/utilities/common_variables.dart';
 import 'package:musify_fork/utilities/flutter_toast.dart';
 import 'package:musify_fork/utilities/formatter.dart';

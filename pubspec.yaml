@@ -5,11 +5,11 @@ repository: https://github.com/gokadzev/Musify
 issue_tracker: https://github.com/gokadzev/Musify/issues
 
 publish_to: 'none'
-version: 9.2.5 # run update.sh after changing the version
+version: 9.2.6 # run update.sh after changing the version
 
 environment:
   sdk: '>=3.7.0 <4.0.0'
-  flutter: ^3.29.0
+  flutter: ^3.29.2
 
 dependencies:
   app_links: ^6.4.0
@@ -44,11 +44,12 @@ dependencies:
   rxdart: ^0.28.0
   shared_preferences: ^2.3.2
   url_launcher: ^6.3.1
-  youtube_explode_dart: ^2.3.10
+  youtube_explode_dart:
+    git:
+      url: https://github.com/gokadzev/yt_explode_dart.git
+      ref: 5ed5f6a502cd4c07e7b93b8066673d055d435a37
 
 dev_dependencies:
-  flutter_launcher_icons: ^0.14.3
-  flutter_native_splash: ^2.4.5
   flutter_test:
     sdk: flutter
   translations_cleaner: ^0.0.5
@@ -70,9 +71,9 @@ flutter:
         - asset: fonts/paytone/PaytoneOne-Regular.ttf
 
 flutter_native_splash:
-  color: "#f9fafd"
+  color: '#f9fafd'
   image: assets/images/ic_splash.png
-  color_dark: "#151515"
+  color_dark: '#151515'
   image_dark: assets/images/ic_splash.png
 
   android_12:
@@ -81,14 +82,8 @@ flutter_native_splash:
 
 flutter_launcher_icons:
   android: true
-  adaptive_icon_background: "#191919"
-  adaptive_icon_foreground: "assets/images/ic_launcher_foreground.png"
-  adaptive_icon_round: "assets/images/ic_launcher_round.png"
-  adaptive_icon_monochrome: "assets/images/ic_launcher_foreground.png"
-  image_path: "assets/images/ic_launcher.png"
-
-# dart run package_rename
-package_rename_config:
-  android:
-    app_name: Musify_fork
-    package_name: com.ruchan.musify_fork
+  adaptive_icon_background: '#191919'
+  adaptive_icon_foreground: 'assets/images/ic_launcher_foreground.png'
+  adaptive_icon_round: 'assets/images/ic_launcher_round.png'
+  adaptive_icon_monochrome: 'assets/images/ic_launcher_foreground.png'
+  image_path: 'assets/images/ic_launcher.png'

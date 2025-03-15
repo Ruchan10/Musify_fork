@@ -1,7 +1,7 @@
 ------------- FUTURE WORKS -------------
 
 - playing another song while a on device song is playing doesnt work
-- MAKE SONGS DOWNLOADABLE TO AUDIO(FLAC) files (Add where to save downloaded files)
+- MAKE SONGS DOWNLOADABLE TO AUDIO(FLAC) files 
 - automatically play next song after one finishes
 - when user clicks on a song it should start playing currently user has to click ont he resume button 
 - in search page songs, albums, playlist page on top 

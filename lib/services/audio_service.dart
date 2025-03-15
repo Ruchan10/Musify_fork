@@ -30,6 +30,7 @@ import 'package:musify_fork/main.dart';
 import 'package:musify_fork/models/position_data.dart';
 import 'package:musify_fork/services/data_manager.dart';
 import 'package:musify_fork/services/settings_manager.dart';
+import 'package:musify_fork/services/user_shared_pref.dart';
 import 'package:musify_fork/utilities/mediaitem.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -183,39 +184,9 @@ class MusifyAudioHandler extends BaseAudioHandler {
   }
 
   Future<void> _initialize() async {
-    final session = await AudioSession.instance;
-    var wasPlayingBeforeInterruption = false;
-
     try {
+      final session = await AudioSession.instance;
       await session.configure(const AudioSessionConfiguration.music());
-      session.interruptionEventStream.listen((event) async {
-        if (event.begin) {
-          wasPlayingBeforeInterruption = audioPlayer.playing;
-
-          switch (event.type) {
-            case AudioInterruptionType.duck:
-              await audioPlayer.setVolume(0.5);
-              break;
-            case AudioInterruptionType.pause:
-            case AudioInterruptionType.unknown:
-              await audioPlayer.pause();
-              break;
-          }
-        } else {
-          switch (event.type) {
-            case AudioInterruptionType.duck:
-              await audioPlayer.setVolume(1);
-              break;
-            case AudioInterruptionType.pause:
-              if (wasPlayingBeforeInterruption) {
-                await audioPlayer.play();
-              }
-              break;
-            case AudioInterruptionType.unknown:
-              break;
-          }
-        }
-      });
     } catch (e, stackTrace) {
       logger.log('Error initializing audio session', e, stackTrace);
     }
@@ -275,6 +246,7 @@ class MusifyAudioHandler extends BaseAudioHandler {
       final audioSource = await buildAudioSource(song, songUrl, isOffline);
       await audioPlayer.setAudioSource(audioSource, preload: false);
       await audioPlayer.play();
+      await UserSharedPrefs.setPlayingSong(song);
     } catch (e, stackTrace) {
       logger.log('Error playing song', e, stackTrace);
     }
@@ -292,6 +264,7 @@ class MusifyAudioHandler extends BaseAudioHandler {
       final cacheKey = 'song_${song['ytid']}_${audioQualitySetting.value}_url';
       if (!isOffline) addOrUpdateData('cache', cacheKey, songUrl);
       if (playNextSongAutomatically.value) getSimilarSong(song['ytid']);
+      await UserSharedPrefs.setPlayingSong(song);
     } catch (e, stackTrace) {
       logger.log('Error playing song', e, stackTrace);
     }
