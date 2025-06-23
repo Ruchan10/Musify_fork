@@ -1,0 +1,78 @@
+name: Build and Release APK
+
+on:
+  push:
+    branches:
+      - main  
+  workflow_dispatch: 
+
+env:
+  VERSION: "9.2.7" 
+  CHANGES: |
+    - Download button in now playing page
+    - Misc improvements
+
+jobs:
+  build:
+    name: Build APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17' 
+          distribution: temurin
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      - name: Decode and Set Up Keystore
+        run: |
+            echo "${{ secrets.KEYSTORE2 }}" | base64 --decode > android/app/key.jks
+            echo "KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}" >> $GITHUB_ENV
+            echo "KEY_ALIAS=${{ secrets.KEY_ALIAS }}" >> $GITHUB_ENV
+            echo "STORE_PASSWORD=${{ secrets.STORE_PASSWORD }}" >> $GITHUB_ENV
+        
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build APK
+        run: flutter build apk --release
+
+      - name: Rename APK with Custom Name
+        run: mv build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/MusifyFork.apk
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-apk
+          path: build/app/outputs/flutter-apk/MusifyFork.apk
+
+  release:
+    name: Release APK
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download APK artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: release-apk
+
+      - name: Create APK Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: MusifyFork.apk
+          token: ${{ secrets.GH_TOKEN }}
+          tag: ${{ env.VERSION }}
+          name: ${{ env.VERSION }}
+          body: ${{ env.CHANGES }}
+          draft: false
+          prerelease: false

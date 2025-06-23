@@ -1,0 +1,12 @@
+<i>Musify Fork</i>: Stream and Play on device songs.
+
+* Play Local Songs – Browse and play audio files stored on your device.
+* Download Song – Search and download songs to your device.
+* Stream Online Music – Search and play songs from online sources.
+* Create Custom Playlists – Organize songs the way you like.
+* Lyrics Support – See lyrics for songs as they play.
+* Import & Export Data – Never lose your playlists and preferences.
+* Dynamic UI with Material Design – Enjoy a visually appealing experience.
+* No Ads & No Subscriptions – 100% free and open-source!
+
+

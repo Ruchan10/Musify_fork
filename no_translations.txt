@@ -1,0 +1,73 @@
+{
+  "he": [
+    "folders"
+  ],
+
+  "hi": [
+    "folders"
+  ],
+
+  "ka": [
+    "addToLikedPlaylists",
+    "addToLikedSongs",
+    "addedPlaylists",
+    "albums",
+    "alreadyDownloading",
+    "backToFavorites",
+    "backgroundPlay",
+    "chooseBackupFiles",
+    "customPlaylists",
+    "deletePlaylist",
+    "downloadCancelled",
+    "downloadFailed",
+    "downloadPlaylist",
+    "hours",
+    "invalidYouTubePlaylist",
+    "library",
+    "makeOffline",
+    "minutes",
+    "newAnnouncement",
+    "noSongsInQueue",
+    "offlinePlaylists",
+    "pickImageFromDevice",
+    "playNext",
+    "playlistAlreadyDownloaded",
+    "playlistDownloaded",
+    "playlistEmpty",
+    "playlistRemovedFromOffline",
+    "predictiveBack",
+    "pureBlackTheme",
+    "removeFromLikedPlaylists",
+    "removeFromLikedSongs",
+    "removeFromPlaylist",
+    "removeFromRecentlyPlayed",
+    "removeOffline",
+    "removeOfflinePlaylist",
+    "removeOfflinePlaylistConfirm",
+    "selectDuration",
+    "setSleepTimer",
+    "setTimer",
+    "sleepTimerCancelled",
+    "sleepTimerSet",
+    "songAddedToOffline",
+    "songAlreadyInPlaylist",
+    "songRemovedFromOffline",
+    "update"
+  ],
+
+  "sv": [
+    "folders"
+  ],
+
+  "tr": [
+    "folders"
+  ],
+
+  "zh": [
+    "folders"
+  ],
+
+  "zh_Hant": [
+    "folders"
+  ]
+}
