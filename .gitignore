@@ -45,3 +45,15 @@ android/app/.cxx/
 
 # Generated localization dart files
 lib/localization/app_*.dart
+
+# Android files to ignore
+*.hprof
+*.log
+*.apk
+*.aab
+build/
+.gradle/
+local.properties
+captures/
+.externalNativeBuild
+.cxx/

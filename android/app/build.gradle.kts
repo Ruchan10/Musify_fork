@@ -56,19 +56,6 @@ android {
         versionName = flutterVersionName
     }
 
-    flavorDimensions += "flavor"
-
-    productFlavors {
-        create("github") {
-            dimension = "flavor"
-            applicationIdSuffix = ""
-        }
-        create("fdroid") {
-            dimension = "flavor"
-            applicationIdSuffix = ".fdroid"
-        }
-    }
-
     signingConfigs {
         create("release") {
             // From decoded key

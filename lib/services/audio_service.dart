@@ -157,6 +157,16 @@ class MusifyAudioHandler extends BaseAudioHandler {
     }
   }
 
+  Future<void> _initializeOfflineAudioSession() async {
+    try {
+      final session = await AudioSession.instance;
+
+      await session.configure(const AudioSessionConfiguration.music());
+    } catch (e, stackTrace) {
+      logger.log('Error initializing offline audio session', e, stackTrace);
+    }
+  }
+
   void _updatePlaybackState() {
     try {
       final currentState = playbackState.valueOrNull;

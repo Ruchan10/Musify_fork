@@ -7,9 +7,9 @@ on:
   workflow_dispatch: 
 
 env:
-  VERSION: "9.2.7" 
+  VERSION: "9.5.2" 
   CHANGES: |
-    - Download button in now playing page
+    - Sync changes with upstream repo
     - Misc improvements
 
 jobs:
@@ -39,6 +39,12 @@ jobs:
             echo "KEY_ALIAS=${{ secrets.KEY_ALIAS }}" >> $GITHUB_ENV
             echo "STORE_PASSWORD=${{ secrets.STORE_PASSWORD }}" >> $GITHUB_ENV
         
+      - name: Create key.properties
+        run: |
+          echo "storePassword=${{ secrets.STORE_PASSWORD }}" > android/key.properties
+          echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> android/key.properties
+          echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> android/key.properties
+          echo "storeFile=app/key.jks" >> android/key.properties
 
       - name: Install dependencies
         run: flutter pub get
