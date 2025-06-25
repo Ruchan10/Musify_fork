@@ -40,6 +40,7 @@ class _DeviceSongsPageState extends State<DeviceSongsPage> {
   void initState() {
     super.initState();
     _fetchSongsFromDevice();
+    audioHandler.restoreOfflinePlaybackState();
   }
 
   Future<void> _loadToggleState() async {
@@ -313,7 +314,7 @@ class _DeviceSongsPageState extends State<DeviceSongsPage> {
               ),
             ),
           );
-        }, childCount: _folders.length,),
+        }, childCount: _folders.length),
       ),
     );
   }
@@ -441,7 +442,7 @@ class _DeviceSongsPageState extends State<DeviceSongsPage> {
     return SliverList(
       delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
         return _buildSongListItem(_deviceSongsList[index], index);
-      }, childCount: _deviceSongsList.length,),
+      }, childCount: _deviceSongsList.length),
     );
   }
 
@@ -450,7 +451,7 @@ class _DeviceSongsPageState extends State<DeviceSongsPage> {
     return SliverList(
       delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
         return _buildSongListItem(_deviceSongsList[index], index);
-      }, childCount: _deviceSongsList.length,),
+      }, childCount: _deviceSongsList.length),
     );
   }
 
@@ -486,6 +487,8 @@ class _DeviceSongsPageState extends State<DeviceSongsPage> {
   @override
   void dispose() {
     mah.stop();
+    print('disposing');
+    audioHandler.saveOfflinePlaybackState();
     super.dispose();
   }
 }

@@ -1,10 +1,10 @@
 ------------- FUTURE WORKS -------------
 
-- playing online song while a, on device song is playing, doesnt work
+- playing online song while a, on device song is playing, doesnt work --- sometimes
 - when update is available download it automatically
 - MAKE SONGS DOWNLOADABLE TO AUDIO(FLAC) files 
 - automatically play next song after one finishes
-- when user clicks on a song it should start playing currently user has to click ont he resume button 
+- when user clicks on a song it should start playing currently user has to click on the resume button 
 - in search page songs, albums, playlist page on top 
 
 - remove buttons from local audio files and make shuffle and repeat work
