@@ -7,9 +7,9 @@ on:
   workflow_dispatch: 
 
 env:
-  VERSION: "9.5.3" 
+  VERSION: "9.5.4" 
   CHANGES: |
-    - Save play session 
+    - Fixed song bar not showing
     - Misc improvements
 
 jobs:

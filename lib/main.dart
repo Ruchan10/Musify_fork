@@ -260,7 +260,7 @@ Future<void> initialisation() async {
       config: const AudioServiceConfig(
         // change this to package name to make noti btns work
         androidNotificationChannelId: 'com.ruchan.musify_fork.debug',
-        androidNotificationChannelName: 'Musify',
+        androidNotificationChannelName: 'Musify_fork',
         androidNotificationIcon: 'drawable/ic_launcher_foreground',
         androidShowNotificationBadge: true,
         androidStopForegroundOnPause: false,

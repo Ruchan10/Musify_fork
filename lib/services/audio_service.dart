@@ -27,10 +27,8 @@ import 'package:audio_session/audio_session.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:musify_fork/API/musify.dart';
 import 'package:musify_fork/main.dart';
-import 'package:musify_fork/models/playback_state_model.dart';
 import 'package:musify_fork/models/position_data.dart';
 import 'package:musify_fork/services/data_manager.dart';
-import 'package:musify_fork/services/restore_pplayback_manager.dart';
 import 'package:musify_fork/services/settings_manager.dart';
 import 'package:musify_fork/services/user_shared_pref.dart';
 import 'package:musify_fork/utilities/mediaitem.dart';
@@ -158,49 +156,6 @@ class MusifyAudioHandler extends BaseAudioHandler {
       logger.log('Error initializing audio session', e, stackTrace);
     }
   }
-
-  Future<void> _initializeOfflineAudioSession() async {
-    try {
-      final session = await AudioSession.instance;
-
-      await session.configure(const AudioSessionConfiguration.music());
-    } catch (e, stackTrace) {
-      logger.log('Error initializing offline audio session', e, stackTrace);
-    }
-  }
-
-  void saveOfflinePlaybackState() async {
-    final trackPaths = _queueList.map((track) => track['filePath']).toList();
-    final currentIndex = _currentQueueIndex;
-    final position = audioPlayer.position;
-
-    final state = OfflinePlaybackState(
-      trackPaths: trackPaths,
-      currentIndex: currentIndex,
-      currentPosition: position,
-    );
-
-    await OfflinePlaybackStore.save(state);
-  }
-
-void restoreOfflinePlaybackState() async {
-  final state = await OfflinePlaybackStore.load();
-  if (state == null) return;
-
-  final existingFiles = state.trackPaths.where((p) => File(p).existsSync()).toList();
-  if (existingFiles.isEmpty) return;
-
-  final audioSources = existingFiles.map((path) => AudioSource.uri(Uri.file(path))).toList();
-
-  await audioPlayer.setAudioSource(
-    ConcatenatingAudioSource(children: audioSources),
-    initialIndex: state.currentIndex,
-    initialPosition: state.currentPosition,
-  );
-
-  await audioPlayer.play();
-}
-
 
   void _updatePlaybackState() {
     try {
@@ -701,7 +656,6 @@ void restoreOfflinePlaybackState() async {
 
       if (audioPlayer.playing) {
         await audioPlayer.stop();
-        return false;
       }
 
       final songUrl = await _getSongUrl(song, isOffline);
@@ -713,13 +667,24 @@ void restoreOfflinePlaybackState() async {
       }
 
       final audioSource = await buildAudioSource(song, songUrl, isOffline);
-      await audioPlayer.setAudioSource(audioSource!, preload: false);
-      await audioPlayer.play();
-      await UserSharedPrefs.setPlayingSong(song);
-
-      return true;
+      if (audioSource == null) {
+        logger.log(
+          'Failed to build audio source for ${song['ytid']}',
+          null,
+          null,
+        );
+        _lastError = 'Failed to build audio source';
+        return false;
+      }
+      return await _setAudioSourceAndPlay(
+        song,
+        audioSource,
+        songUrl,
+        isOffline,
+      );
     } catch (e, stackTrace) {
       logger.log('Error playing song', e, stackTrace);
+      _lastError = e.toString();
 
       return false;
     }

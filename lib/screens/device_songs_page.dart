@@ -40,7 +40,7 @@ class _DeviceSongsPageState extends State<DeviceSongsPage> {
   void initState() {
     super.initState();
     _fetchSongsFromDevice();
-    audioHandler.restoreOfflinePlaybackState();
+    // audioHandler.restoreOfflinePlaybackState();
   }
 
   Future<void> _loadToggleState() async {
@@ -487,8 +487,7 @@ class _DeviceSongsPageState extends State<DeviceSongsPage> {
   @override
   void dispose() {
     mah.stop();
-    print('disposing');
-    audioHandler.saveOfflinePlaybackState();
+
     super.dispose();
   }
 }
