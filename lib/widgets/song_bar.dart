@@ -341,7 +341,6 @@ class _SongInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('$title,      $artist,     ---------------');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[

@@ -4,7 +4,6 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:musify_fork/API/musify.dart';
 import 'package:musify_fork/extensions/l10n.dart';
-import 'package:musify_fork/main.dart';
 import 'package:musify_fork/services/audio_service.dart';
 import 'package:musify_fork/services/user_shared_pref.dart';
 import 'package:musify_fork/widgets/playlist_cube.dart';
@@ -328,7 +327,7 @@ class _DeviceSongsPageState extends State<DeviceSongsPage> {
       iconSize: 25,
       onPressed: () {
         final _newList = List.of(_playlist['list'])..shuffle();
-        setActivePlaylist({
+        setLocalActivePlaylist({
           'title': _playlist['title'],
           'image': _playlist['image'],
           'list': _newList,
@@ -477,16 +476,15 @@ class _DeviceSongsPageState extends State<DeviceSongsPage> {
       showBtns: false,
       true,
       onPlay:
-          () => audioHandler.playPlaylistSong(
-            playlist: _playlist,
-            songIndex: index,
-          ),
+          () =>
+              mah.playLocalPlaylistSong(playlist: _playlist, songIndex: index),
     );
   }
 
   @override
   void dispose() {
     mah.stop();
+    // audioHandler.saveOfflinePlaybackState();
 
     super.dispose();
   }

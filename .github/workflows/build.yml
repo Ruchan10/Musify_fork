@@ -7,9 +7,9 @@ on:
   workflow_dispatch: 
 
 env:
-  VERSION: "9.5.4" 
+  VERSION: "9.5.5" 
   CHANGES: |
-    - Fixed song bar not showing
+    - Fixed auto play next song 
     - Misc improvements
 
 jobs:

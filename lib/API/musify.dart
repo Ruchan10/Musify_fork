@@ -640,10 +640,29 @@ int findPlaylistIndexByYtId(String ytid) {
 }
 
 Future<void> setActivePlaylist(Map info) async {
+  debugPrint('setActivePlaylist---------------');
   activePlaylist = info;
   activeSongId = 0;
 
   await audioHandler.playSong(activePlaylist['list'][activeSongId]);
+}
+
+Future<void> setLocalActivePlaylist(Map info) async {
+  debugPrint('setLocalActivePlaylist---------------');
+
+  activePlaylist = info;
+  activeSongId = 0;
+
+  final songs = List<Map<String, dynamic>>.from(info['list']);
+
+  // Clear and rebuild queue
+  audioHandler.clearQueue();
+  for (final song in songs) {
+    await audioHandler.addToQueue(song);
+  }
+
+  // Play from first song
+  await audioHandler.skipToSong(0);
 }
 
 Future<Map?> getPlaylistInfoForWidget(
