@@ -24,7 +24,6 @@ import 'dart:io';
 
 import 'package:audio_service/audio_service.dart';
 import 'package:audio_session/audio_session.dart';
-import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:musify_fork/API/musify.dart';
 import 'package:musify_fork/main.dart';
@@ -33,7 +32,6 @@ import 'package:musify_fork/models/position_data.dart';
 import 'package:musify_fork/services/data_manager.dart';
 import 'package:musify_fork/services/restore_playback.dart';
 import 'package:musify_fork/services/settings_manager.dart';
-import 'package:musify_fork/services/user_shared_pref.dart';
 import 'package:musify_fork/utilities/mediaitem.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -247,23 +245,17 @@ class MusifyAudioHandler extends BaseAudioHandler {
   }
 
   Future<void> _handleSongCompletion() async {
-    debugPrint('Song completed ---------------');
     try {
       if (_currentQueueIndex < _queueList.length) {
         _addToHistory(_queueList[_currentQueueIndex]);
       }
 
       if (hasNext) {
-        debugPrint('hasNext ---------------');
         await skipToNext();
       } else if (repeatNotifier.value == AudioServiceRepeatMode.all &&
           _queueList.isNotEmpty) {
-        debugPrint(
-          'repeatNotifier.value == AudioServiceRepeatMode.all ---------------',
-        );
         await _playFromQueue(0);
       } else if (playNextSongAutomatically.value) {
-        debugPrint('playNextSongAutomatically.value ---------------');
         await _playRecommendedSong();
       }
     } catch (e, stackTrace) {
@@ -387,9 +379,6 @@ class MusifyAudioHandler extends BaseAudioHandler {
             ..add(song);
         }
       }
-      debugPrint(
-        '${_queueList.length}, $startIndex in addPlaylistToQueue---------------',
-      );
       _updateQueueMediaItems();
 
       if (startIndex != null && startIndex < _queueList.length) {
@@ -479,9 +468,6 @@ class MusifyAudioHandler extends BaseAudioHandler {
         logger.log('Invalid queue index: $index', null, null);
         return;
       }
-      debugPrint(
-        '$_currentQueueIndex, ${_queueList.length} in _playFromQueue---------------',
-      );
       _currentQueueIndex = index;
       _updateQueueMediaItems();
 
@@ -659,11 +645,10 @@ class MusifyAudioHandler extends BaseAudioHandler {
 
   Future<bool> playSong(Map song) async {
     try {
-      debugPrint('${song['ytid']}, playSong---------------');
-      if (song['ytid'] == null || song['ytid'].toString().isEmpty) {
-        logger.log('Invalid song data: missing ytid', null, null);
-        return false;
-      }
+      //   if (song['ytid'] == null || song['ytid'].toString().isEmpty) {
+      //     logger.log('Invalid song data: missing ytid', null, null);
+      //     return false;
+      //   }
 
       _lastError = null;
       final isOffline = song['isOffline'] ?? false;
@@ -672,13 +657,13 @@ class MusifyAudioHandler extends BaseAudioHandler {
         await audioPlayer.stop();
       }
 
-      final songUrl = await _getSongUrl(song, isOffline);
+      final songUrl = await _getSongUrl(song, isOffline) ?? song['filePath'];
 
-      if (songUrl == null || songUrl.isEmpty) {
-        logger.log('Failed to get song URL for ${song['ytid']}', null, null);
-        _lastError = 'Failed to get song URL';
-        return false;
-      }
+      //   if (songUrl == null || songUrl.isEmpty) {
+      //     logger.log('Failed to get song URL for ${song['ytid']}', null, null);
+      //     _lastError = 'Failed to get song URL';
+      //     return false;
+      //   }
 
       final audioSource = await buildAudioSource(song, songUrl, isOffline);
       if (audioSource == null) {
@@ -706,22 +691,35 @@ class MusifyAudioHandler extends BaseAudioHandler {
 
   Future<bool> playDeviceSong(Map song) async {
     try {
+      _lastError = null;
       final isOffline = song['isOffline'] ?? false;
+
+      if (audioPlayer.playing) {
+        await audioPlayer.stop();
+      }
+
       final songUrl = song['filePath'];
 
       final audioSource = await buildAudioSource(song, songUrl, isOffline);
-      await audioPlayer.setAudioSource(audioSource!, preload: false);
-      await audioPlayer.play();
-
-      final cacheKey = 'song_${song['ytid']}_${audioQualitySetting.value}_url';
-      if (!isOffline) await addOrUpdateData('cache', cacheKey, songUrl);
-      if (playNextSongAutomatically.value) getSimilarSong(song['ytid']);
-      await UserSharedPrefs.setPlayingSong(song);
-
-      return true;
+      if (audioSource == null) {
+        logger.log(
+          'Failed to build audio source for ${song['filePath']}',
+          null,
+          null,
+        );
+        _lastError = 'Failed to build audio source';
+        return false;
+      }
+      return await _setAudioSourceAndPlay(
+        song,
+        audioSource,
+        songUrl,
+        isOffline,
+      );
     } catch (e, stackTrace) {
       logger.log('Error playing song', e, stackTrace);
       _lastError = e.toString();
+
       return false;
     }
   }
@@ -800,7 +798,6 @@ class MusifyAudioHandler extends BaseAudioHandler {
       _updatePlaybackState();
 
       if (playNextSongAutomatically.value) {
-        debugPrint('playNextSongAutomatically.value ---------------');
         getSimilarSong(song['ytid']);
       }
 
@@ -862,9 +859,7 @@ class MusifyAudioHandler extends BaseAudioHandler {
     Map<dynamic, dynamic>? playlist,
     required int songIndex,
   }) async {
-    debugPrint('playPlaylistSong---------------');
     try {
-      debugPrint('playlist ${playlist?.length}, $songIndex---------------');
       if (playlist != null && playlist['list'] != null) {
         await addPlaylistToQueue(
           List<Map>.from(playlist['list']),
@@ -881,28 +876,35 @@ class MusifyAudioHandler extends BaseAudioHandler {
     required Map<String, dynamic> playlist,
     required int songIndex,
   }) async {
-    debugPrint('playLocalPlaylistSong---------------');
     try {
-      final songs = playlist['list'] as List<Map<String, dynamic>>;
+      final allSongs = playlist['list'] as List<Map<String, dynamic>>;
+
+      final clickedSong = allSongs[songIndex];
+
+      final success = await playSong(clickedSong);
+      if (success) return;
+
+      final otherSongs = [...allSongs]..removeAt(songIndex);
+
+      final reorderedSongs = [clickedSong, ...otherSongs];
 
       _queueList
         ..clear()
-        ..addAll(songs);
-      _currentQueueIndex = songIndex;
-      debugPrint(
-        '$_currentQueueIndex, ${_queueList.length} in playLocalPlaylistSong---------------',
-      );
+        ..addAll(reorderedSongs);
+
+      _currentQueueIndex = 0;
+
       _updateQueueMediaItems();
 
       final audioSources =
-          songs.map((song) {
-            final songUrl = song['filePath'];
+          reorderedSongs.map((song) {
+            final songUrl = song['filePath'] ?? song['audioPath'];
             return AudioSource.uri(Uri.parse(songUrl), tag: song);
           }).toList();
 
       await audioPlayer.setAudioSource(
         ConcatenatingAudioSource(children: audioSources),
-        initialIndex: songIndex,
+        initialIndex: 0,
       );
 
       await audioPlayer.play();
@@ -974,19 +976,13 @@ class MusifyAudioHandler extends BaseAudioHandler {
 
   @override
   Future<void> skipToNext() async {
-    debugPrint('$_currentQueueIndex, ${_queueList.length} ---------------');
     try {
       if (_currentQueueIndex < _queueList.length - 1) {
-        debugPrint('skipToNext ---------------');
         await _playFromQueue(_currentQueueIndex + 1);
       } else if (repeatNotifier.value == AudioServiceRepeatMode.all &&
           _queueList.isNotEmpty) {
-        debugPrint(
-          'repeatNotifier.value == AudioServiceRepeatMode.all ---------------',
-        );
         await _playFromQueue(0);
       } else if (playNextSongAutomatically.value && !_isLoadingNextSong) {
-        debugPrint('playNextSongAutomatically.value ---------------');
         await _handleAutoPlayNext();
       }
     } catch (e, stackTrace) {
@@ -1175,7 +1171,6 @@ class MusifyAudioHandler extends BaseAudioHandler {
 
     final existingFiles =
         state.trackPaths.where((p) => File(p).existsSync()).toList();
-    debugPrint('Existing files: $existingFiles ---------------');
     if (existingFiles.isEmpty) return;
 
     final audioSources =

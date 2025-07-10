@@ -331,7 +331,7 @@ class _DeviceSongsPageState extends State<DeviceSongsPage> {
           'title': _playlist['title'],
           'image': _playlist['image'],
           'list': _newList,
-        });
+        }, 0);
       },
     );
   }
@@ -471,14 +471,7 @@ class _DeviceSongsPageState extends State<DeviceSongsPage> {
         }).toList();
 
     _playlist = {'title': song['title'], 'list': songMaps};
-    return SongBar(
-      song,
-      showBtns: false,
-      true,
-      onPlay:
-          () =>
-              mah.playLocalPlaylistSong(playlist: _playlist, songIndex: index),
-    );
+    return SongBar(song, showBtns: false, true);
   }
 
   @override
