@@ -26,8 +26,6 @@ class DownloadHelper {
       final int progress = data[2];
 
       if (status == DownloadTaskStatus.complete) {
-        debugPrint('Download COMPLETED ------------');
-
         showToast(snackbarKey.currentContext!, 'Download Completed');
       }
     });
@@ -44,7 +42,6 @@ class DownloadHelper {
 
   // /// Show snackbar when download is complete
   // static void _showDownloadCompleteSnackbar() {
-  //   debugPrint('SNACK BAR DISPLAYED--------------');
   //   snackbarKey.currentState?.showSnackBar(
   //     const SnackBar(
   //       content: Text(' Download Complete!'),

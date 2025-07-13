@@ -642,13 +642,14 @@ int findPlaylistIndexByYtId(String ytid) {
 Future<void> setActivePlaylist(Map info) async {
   activePlaylist = info;
   activeSongId = 0;
+  audioHandler.clearQueue();
 
   await audioHandler.playSong(activePlaylist['list'][activeSongId]);
 }
 
 Future<void> setLocalActivePlaylist(Map info, int index) async {
   activePlaylist = info;
-  activeSongId = index; 
+  activeSongId = index;
 
   final songs = List<Map<String, dynamic>>.from(info['list']);
 
@@ -659,7 +660,7 @@ Future<void> setLocalActivePlaylist(Map info, int index) async {
   }
 
   // Play from first song
-  await audioHandler.skipToSong(0);
+  await audioHandler.skipToSong(index);
 }
 
 Future<Map?> getPlaylistInfoForWidget(

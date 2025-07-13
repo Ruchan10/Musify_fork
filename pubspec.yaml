@@ -5,7 +5,7 @@ repository: https://github.com/gokadzev/Musify
 issue_tracker: https://github.com/gokadzev/Musify/issues
 
 publish_to: 'none'
-version: 9.5.5+133 # run update.sh after changing the version
+version: 9.5.6+133 # run update.sh after changing the version
 
 environment:
   sdk: '>=3.7.0 <4.0.0'
@@ -43,10 +43,8 @@ dependencies:
   rxdart: ^0.28.0
   shared_preferences: ^2.3.2
   url_launcher: ^6.3.1
-  youtube_explode_dart:
-    git:
-      url: https://github.com/gokadzev/yt_explode_dart
-      ref: OG
+  youtube_explode_dart: ^2.5.1
+
 
 dev_dependencies:
   flutter_test:

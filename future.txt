@@ -1,6 +1,6 @@
 ------------- FUTURE WORKS -------------
 
-- playing online song while a, on device song is playing, doesnt work --- sometimes
+- loading list of songs takes time 
 - when update is available download it automatically
 - MAKE SONGS DOWNLOADABLE TO AUDIO(FLAC) files 
 - automatically play next song after one finishes
@@ -17,4 +17,4 @@
 - able to dismiss mini bar
 - add skip to next or prev button on the mini bar 
 - store the played song, able to resume where user left
-- get rid of mull
+- get rid of null

@@ -245,7 +245,9 @@ class _MetadataWidget extends StatelessWidget {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
-                if (artist != null && artist!.isNotEmpty) ...[
+                if (artist != null &&
+                    artist != 'null' &&
+                    artist!.isNotEmpty) ...[
                   const SizedBox(height: 2),
                   Text(
                     artist!,

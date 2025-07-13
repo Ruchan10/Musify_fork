@@ -229,8 +229,15 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
   }
 
   static bool _mediaItemEquals(MediaItem? prev, MediaItem? curr) {
-    if (prev == curr) return true;
     if (prev == null || curr == null) return false;
+    if (audioHandler.mediaItem.value != null &&
+        audioHandler.mediaItem.value?.title != 'null' &&
+        audioHandler.mediaItem.value?.title != null) {
+      return false;
+    }
+    if (prev == curr) {
+      return true;
+    }
 
     return prev.id == curr.id &&
         prev.title == curr.title &&
